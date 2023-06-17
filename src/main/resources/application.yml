@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: study-server
+
+  profiles:
+    include:
+      secret
+
+  datasource:
+    url: ENC(i9CJ9asDFyA896CwhmNdIq5QhbToFN9jC3nlHz49oMbapBBOdVqHVo768MWZNKY+86bKUo+AbC4zuHWy4NsKwuUyvpFHzREk5sIZ/G8M0bZTNyV82uusjA==)
+    username: ENC(vVTzs/wnFCkvCjrq7S5yWw==)
+    password: ENC(HcD6QiG9CfvqrBHRUqQNEw==)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#  redis:
+#    host: ENC(2vs2h50LHu9p/WFRDyH9M8Kvtn6Trbjp)
+#    port: 6377

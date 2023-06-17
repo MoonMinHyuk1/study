@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: study-server
+
+  datasource:
+    url: jdbc:mysql://localhost:3304/study?useSSL=false&serverTimezone=Asia/Seoul
+    username: user
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#  redis:
+#    host: localhost
+#    port: 6377
