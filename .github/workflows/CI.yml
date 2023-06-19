@@ -49,9 +49,9 @@ jobs:
         with:
           host port: 3304
           container port: 3304
-          mysql database: 'test_db'
-          mysql user: 'test'
-          mysql password: 'test_pw'
+          mysql database: 'study'
+          mysql user: 'user'
+          mysql password: 'root'
 
       #테스트를 위한 redis 설정
 #      - name: Start Redis
