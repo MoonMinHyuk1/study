@@ -2,9 +2,9 @@ spring:
   application:
     name: study-server
 
-  profiles:
-    include:
-      secret
+  config:
+    activate:
+      on-profile: "prod"
 
   jpa:
     database: mysql
@@ -18,9 +18,9 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
 
   datasource:
-    url: ENC(i9CJ9asDFyA896CwhmNdIq5QhbToFN9jC3nlHz49oMbapBBOdVqHVo768MWZNKY+86bKUo+AbC4zuHWy4NsKwuUyvpFHzREk5sIZ/G8M0bZTNyV82uusjA==)
-    username: ENC(vVTzs/wnFCkvCjrq7S5yWw==)
-    password: ENC(HcD6QiG9CfvqrBHRUqQNEw==)
+    url: ENC(KfoCUh6ZJPswSFpcuxxaMsTh/fp1hgr9bAntA6bQGBzsltWz4Bm7wZ0FdwuUWNBhSp562Q9CAgGGt4Lr6PNzb4cI70s/IMq/ZnNY4MsOAdmIXIkTNo4jYgz48dxjxZfxGyrXhoGy/UEpnOULSwgLrPcAbOp/3gzmYnZPbr0uxCQ=)
+    username: ENC(Xp6n1CvQn5kuYr7H5CVFTA==)
+    password: ENC(dv0ChLPj92uKpx41cw/+IGvOZeVgCbY+)
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 #  redis:
