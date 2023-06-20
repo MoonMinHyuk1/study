@@ -41,9 +41,9 @@ jobs:
           echo "${{ secrets.PROPERTIES_SECRET }}" > ./application-secret.yml
         shell: bash
 
-      #프로젝트 빌드
-      - name: Build
-        run: ./gradlew build
+      #jar 빌드
+      - name: Jar Build
+        run: ./gradlew bootJar
 
       #zip파일 생성
       - name: Make zip file
