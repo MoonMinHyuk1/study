@@ -1,0 +1,12 @@
+version: 0.0
+os: ubuntu
+files:
+  - source: / #EC2에 복사할 파일
+    destination: /home/ubuntu/study/ #EC2에 복사되는 파일의 위치
+    overwrite: yes #덮어쓰기
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu

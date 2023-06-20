@@ -1,0 +1,29 @@
+version: '3'
+services:
+  redis:
+    container_name: redis_study
+    image: redis:latest
+    ports:
+      - "6377:6379"
+    networks:
+      - db_network
+
+  mysql:
+    container_name: mysql_study
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: study
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    command:
+      - --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3304:3306"
+    networks:
+      - db_network
+
+
+networks:
+  db_network:
+    driver: bridge
