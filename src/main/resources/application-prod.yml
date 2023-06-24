@@ -18,9 +18,9 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
 
   datasource:
-    url: ENC(KfoCUh6ZJPswSFpcuxxaMsTh/fp1hgr9bAntA6bQGBzsltWz4Bm7wZ0FdwuUWNBhSp562Q9CAgGGt4Lr6PNzb4cI70s/IMq/ZnNY4MsOAdmIXIkTNo4jYgz48dxjxZfxGyrXhoGy/UEpnOULSwgLrPcAbOp/3gzmYnZPbr0uxCQ=)
-    username: ENC(Xp6n1CvQn5kuYr7H5CVFTA==)
-    password: ENC(dv0ChLPj92uKpx41cw/+IGvOZeVgCbY+)
+    url: ENC(8H0WSZXzgetPmawJXohtjmsLhcBksRK/8i6H9pVTXsDX7LG+NHk+n30EKshNVSfYNJ2Sb6lnfpnJIQ/0W+LrRn/gV3FDtWKhgr14Yam5LO4JOYB3SWeeXc8m1FUCevAg4vH8cCvSw0HND0wkvtrBAOfXtiI2RJzysgasGBdxl5c=)
+    username: ENC(cK/WxKDOmFR3LMOpvh21uQ==)
+    password: ENC(VJVBKjn7uconqIipj4nC7P9Dk7v38mu+)
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 #  redis:
