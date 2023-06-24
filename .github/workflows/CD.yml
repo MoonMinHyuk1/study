@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  S3_BUCKET_NAME: study-deploy
+  S3_BUCKET_NAME: study-deploy-bucket
   PROJECT_NAME: study-server
 
 jobs:
