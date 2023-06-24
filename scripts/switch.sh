@@ -17,7 +17,7 @@ else
 fi
 
 # Change proxying port into target port
-echo "set \$service_url http://52.78.199.184:${TARGET_PORT};" | tee /home/ubuntu/service_url.inc
+echo "set \$service_url http://15.165.202.106:${TARGET_PORT};" | tee /home/ubuntu/service_url.inc
 
 echo "> Now Nginx proxies to ${TARGET_PORT}."
 
