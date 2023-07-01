@@ -1,11 +1,10 @@
-package tech.study.domain.user.entity;
+package tech.study.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import tech.study.domain.user.dto.SignupRequest;
 
 @Entity
 @Getter
@@ -24,16 +23,16 @@ public class Member {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Authority authority;
+    private Authority authority = Authority.USER;
 
     @Enumerated(EnumType.STRING)
-    private Provider provider;
+    private Provider provider = Provider.NONE;
 
     @Builder
-    public Member(SignupRequest request, Authority authority, Provider provider) {
-        this.username = request.getUsername();
-        this.email = request.getEmail();
-        this.password = request.getPassword();
+    public Member(String username, String email, String password, Authority authority, Provider provider) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
         this.authority = authority;
         this.provider = provider;
     }

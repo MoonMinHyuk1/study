@@ -1,7 +1,7 @@
-package tech.study.domain.user.repository;
+package tech.study.domain.member.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tech.study.domain.user.entity.Member;
+import tech.study.domain.member.entity.Member;
 
 import java.util.Optional;
 

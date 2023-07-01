@@ -1,8 +1,8 @@
-package tech.study.domain.user.validate;
+package tech.study.domain.member.validate;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import tech.study.domain.user.repository.MemberRepository;
+import tech.study.domain.member.repository.MemberRepository;
 import tech.study.global.exception.ApplicationException;
 
 import static tech.study.global.exception.ErrorCode.DONT_EQUAL_PASSWORD;
