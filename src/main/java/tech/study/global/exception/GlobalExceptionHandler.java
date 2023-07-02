@@ -22,9 +22,9 @@ public class GlobalExceptionHandler {
                         e.getBindingResult().getAllErrors().get(0).getDefaultMessage()));
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ApplicationResponse<ErrorCode>> runtimeException(RuntimeException e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApplicationResponse(ErrorCode.INTERNAL_SERVER_EXCEPTION));
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    public ResponseEntity<ApplicationResponse<ErrorCode>> runtimeException(RuntimeException e) {
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                .body(new ApplicationResponse(ErrorCode.INTERNAL_SERVER_EXCEPTION));
+//    }
 }

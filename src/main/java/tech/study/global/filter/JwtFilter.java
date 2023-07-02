@@ -1,23 +1,27 @@
 package tech.study.global.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StringUtils;
+import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
+import tech.study.global.exception.ApplicationException;
 import tech.study.global.jwt.TokenProvider;
+import tech.study.global.response.ApplicationResponse;
 
 import java.io.IOException;
+import java.util.Arrays;
 
+@Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
-
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String BEARER_PREFIX = "Bearer ";
 
     private final TokenProvider tokenProvider;
 
@@ -25,23 +29,32 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String jwt = resolveToken(request);
+        String jwt = tokenProvider.resolveToken(request);
 
         //유효성 검사 후 토큰에 해당하는 Authentication 을 가져와 SecurityContext 에 저장
-        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+        try {
+            tokenProvider.validateToken(jwt);
             Authentication authentication = tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
 
-        filterChain.doFilter(request, response);
+            filterChain.doFilter(request, response);
+        } catch (ApplicationException e) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            response.setStatus(e.getErrorCode().getStatus().value());
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.setCharacterEncoding("UTF-8");
+            objectMapper.writeValue(response.getWriter(), new ApplicationResponse(e.getErrorCode()));
+        }
     }
 
-    // Request Header 에서 토큰 정보를 꺼내오기
-    private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-            return bearerToken.substring(7);
-        }
-        return null;
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+
+        AntPathMatcher pathMatcher = new AntPathMatcher();
+        String[] excludePath = {"/api", "/api/member/signup", "/api/member/signin",
+                                "/", "/signup",
+                                "/static/**", "/css/**", "/error"};
+        String path = request.getRequestURI();
+        return Arrays.stream(excludePath).anyMatch(ep -> pathMatcher.match(ep, path));
     }
 }

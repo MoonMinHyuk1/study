@@ -1,5 +1,6 @@
 package tech.study.domain.member.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.study.domain.member.controller.dto.TokenDto;
+import tech.study.domain.member.dto.MemberResponse;
 import tech.study.domain.member.dto.SigninRequest;
 import tech.study.domain.member.dto.SignupRequest;
 import tech.study.domain.member.entity.Authority;
@@ -32,6 +34,10 @@ public class MemberService {
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
+    public MemberResponse getMember(Member member) {
+        return MemberResponse.builder().member(member).build();
+    }
+
     @Transactional
     public void signup(SignupRequest request) {
         memberValidate.duplicateEmail(request.getEmail());
@@ -51,6 +57,15 @@ public class MemberService {
         Authentication authentication = createAuthentication(request.getEmail(), request.getPassword());
 
         //인증 정보를 기반으로 JWT 토큰 생성
+        return tokenProvider.createTokenDto(authentication);
+    }
+
+    public TokenDto reissue(HttpServletRequest request, String refreshToken) {
+        tokenProvider.validateToken(refreshToken);
+
+        String accessToken = tokenProvider.resolveToken(request);
+        Authentication authentication = tokenProvider.getAuthentication(accessToken);
+
         return tokenProvider.createTokenDto(authentication);
     }
 

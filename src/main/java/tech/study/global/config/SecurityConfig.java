@@ -30,8 +30,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-
-
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http.csrf().disable()        //csrf 보안 설정 사용 X
@@ -46,7 +44,9 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(request -> request               // 사용자가 보내는 요청에 인증 절차 수행 필요
-                        .requestMatchers("/api", "/api/member/**", "/", "/signup", "/static/**", "/css/**", "/error").permitAll()    // 해당 URL은 인증 절차 수행 생략 가능
+                        .requestMatchers("/api", "/api/member/signup", "/api/member/signin",
+                                "/", "/signup",
+                                "/static/**", "/css/**", "/error").permitAll()    // 해당 URL은 인증 절차 수행 생략 가능
                         .anyRequest().authenticated())                  // 나머지 요청들은 모두 인증 절차 수행해야함
 
                 .oauth2Login(login -> login  // OAuth2를 통한 로그인 사용

@@ -3,6 +3,7 @@ package tech.study.global.jwt;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import tech.study.domain.member.controller.dto.TokenDto;
 import tech.study.global.exception.ApplicationException;
 
@@ -21,6 +23,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import static tech.study.global.exception.ErrorCode.FORBIDDEN_EXCEPTION;
 import static tech.study.global.exception.ErrorCode.UNAUTHORIZED_EXCEPTION;
 
 @Slf4j
@@ -30,6 +33,8 @@ public class TokenProvider {
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;            // 30분
 
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
+
+    public static final String AUTHORIZATION_HEADER = "Authorization";
 
     private static final String AUTHORITIES_KEY = "auth";
 
@@ -73,7 +78,7 @@ public class TokenProvider {
         Claims claims = parseClaims(accessToken);
 
         if(claims.get(AUTHORITIES_KEY) == null) {
-            throw new ApplicationException(UNAUTHORIZED_EXCEPTION);
+            throw new ApplicationException(FORBIDDEN_EXCEPTION);
         }
 
         //claims 에서 권한 정보 가져오기
@@ -88,20 +93,22 @@ public class TokenProvider {
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 
-    public boolean validateToken(String token) {
+    public void validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            log.info("잘못된 JWT 서명입니다.");
+            log.error("잘못된 JWT 서명입니다.");
+            throw new ApplicationException(UNAUTHORIZED_EXCEPTION);
         } catch (ExpiredJwtException e) {
-            log.info("만료된 JWT 토큰입니다.");
+            log.error("만료된 JWT 토큰입니다.");
+            throw new ApplicationException(UNAUTHORIZED_EXCEPTION);
         } catch (UnsupportedJwtException e) {
-            log.info("지원되지 않는 JWT 토큰입니다.");
+            log.error("지원되지 않는 JWT 토큰입니다.");
+            throw new ApplicationException(UNAUTHORIZED_EXCEPTION);
         } catch (IllegalArgumentException e) {
-            log.info("JWT 토큰이 잘못되었습니다.");
+            log.error("JWT 토큰이 잘못되었습니다.");
+            throw new ApplicationException(UNAUTHORIZED_EXCEPTION);
         }
-        return false;
     }
 
     public Claims parseClaims(String accessToken) {
@@ -110,5 +117,14 @@ public class TokenProvider {
         } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
+    }
+
+    // Request Header 에서 토큰 정보를 꺼내오기
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 }

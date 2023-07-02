@@ -17,7 +17,7 @@ public class SecurityUtil {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || authentication.getName() == null) {
-            throw new ApplicationException(DONT_VALIDATE_TOKEN);
+            throw new ApplicationException(UNAUTHORIZED_EXCEPTION);
         }
 
         return Long.parseLong(authentication.getName());

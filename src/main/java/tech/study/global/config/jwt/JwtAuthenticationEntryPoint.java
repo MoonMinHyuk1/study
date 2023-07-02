@@ -13,7 +13,7 @@ import tech.study.global.response.ApplicationResponse;
 
 import java.io.IOException;
 
-import static tech.study.global.exception.ErrorCode.DONT_VALIDATE_TOKEN;
+import static tech.study.global.exception.ErrorCode.FAIL_SIGNIN;
 
 @Slf4j
 @Component
@@ -25,9 +25,9 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         // 유효한 자격증명을 제공하지 않고 접근하려 할때 401
         log.error("인증에 실패했습니다.");
         ObjectMapper objectMapper = new ObjectMapper();
-        response.setStatus(DONT_VALIDATE_TOKEN.getStatus().value());
+        response.setStatus(FAIL_SIGNIN.getStatus().value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
-        objectMapper.writeValue(response.getWriter(), new ApplicationResponse(DONT_VALIDATE_TOKEN));
+        objectMapper.writeValue(response.getWriter(), new ApplicationResponse(FAIL_SIGNIN));
     }
 }

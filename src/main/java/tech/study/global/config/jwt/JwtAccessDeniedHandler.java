@@ -13,7 +13,7 @@ import tech.study.global.response.ApplicationResponse;
 
 import java.io.IOException;
 
-import static tech.study.global.exception.ErrorCode.UNAUTHORIZED_EXCEPTION;
+import static tech.study.global.exception.ErrorCode.FORBIDDEN_EXCEPTION;
 
 @Slf4j
 @Component
@@ -25,9 +25,9 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
         // 필요한 권한이 없이 접근하려 할때 403
         log.error("권한이 없습니다.");
         ObjectMapper objectMapper = new ObjectMapper();
-        response.setStatus(UNAUTHORIZED_EXCEPTION.getStatus().value());
+        response.setStatus(FORBIDDEN_EXCEPTION.getStatus().value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
-        objectMapper.writeValue(response.getWriter(), new ApplicationResponse(UNAUTHORIZED_EXCEPTION));
+        objectMapper.writeValue(response.getWriter(), new ApplicationResponse(FORBIDDEN_EXCEPTION));
     }
 }
