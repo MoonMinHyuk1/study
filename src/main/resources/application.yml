@@ -23,6 +23,59 @@ spring:
     password: ENC(HcD6QiG9CfvqrBHRUqQNEw==)
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+    check-template-location: true
+    mode: HTML
+    cache: false
+
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+
+  jwt:
+    key: ENC(71RD+zR8Ab6t7BHHCw6dt7/k9r/2901KJpcE0rZDFIhDnYjogpefnUUZKdNIFXO9jojtNf7d9nrQaFPN6oks6/Ky8jTQLL0Z8uKx2SlV+BQLPoJJ2zNyUiIeHHzpEy2wZbd1Csr8a2+dbPSVUlXjmwpRJrfLM1BmlXDhJxMssc//pfebSzHLxA==)
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            redirect-uri: ENC(dl6R4p54Q4yaEP6DhNjcN2iUywNwx05R75RbNaXQn8Rsj3ZN59Gum36JLW58sgR6b1MKoXVAtZc=)
+            client-id: ENC(KhcIwgfvAvxY0viL+XbonSrk1OdbKBRMQRAnjlsZflWyli8kwemJTFqHPYcY5kRw1RIqZrIcj8H385Pl8vPuj0X9bGIeLcHJjUCrVNRzY8PTUHglmG3G+w==)
+            scope: ENC(ryEqqpUXvGiebU7X6+dppfJDP7cdGHoU)
+
+          naver:
+            redirect-uri: ENC(UbSEVRE5Gsv8NiyqJlwIqI3aXpN7FZrm8WromOeLIvhRqybD4BVHgte04j16NmuV7x8pz7QSPsw=)
+            client-id: ENC(ed47qIGZgtwQmmU1Y6jw99Ta7ossPwR3HHUbYwxrfrw=)
+            client-secret: ENC(Ah7SNV7Kw2D+UWsgT2MW35FkDysu4ymF)
+            authorization-grant-type: ENC(frX12RuB3bvXPOABsSmS1jxTeXTW/ZxRTLRg/hlHsB0=)
+            client-name: ENC(wRXgNqFtmMsCOATyL+jExg==)
+            scope: ENC(Kkk7W2VWqgjaqNmdgkbQ/pAjPjkNZmYwyQs8iLvoXbA8WG3IZ7PG+F20x71hpN7Med5NXkCw+hWfKEnt8C4+QQ==)
+
+          kakao:
+            redirect-uri: ENC(kXH9LuedNCpCg8JwHfgofj76F8Wo13J++gOEtCZ2NI36Ab3zbKbU/iNJ5z+Qsw88SyjnzvYSBlI=)
+            client-id: ENC(n9OWsMdk6B3od7hiQyksaYS6MEw/Qq6R0saYXbGkh2YRM6Yw6loijIt8K1SxzmuW)
+            client-authentication-method: POST
+            authorization-grant-type: ENC(8b0ZS+Qubh9AcQ7MPKWVfWErsmYNHAEWsOnSYUgfoFU=)
+            client-name: ENC(hC/ScVhTIU8rAabVHGrDWQ==)
+            scope: ENC(ln3o4HMYQI7CE89UJQeDfuwt0klD2pyTiEJXu4yO6eLeq3jWRHRkonAmWs5SfU1TFY9WkbAD8z0=)
+
+        provider:
+          naver:
+            authorization-uri: ENC(EO+SiLQJ6YgHbnbkUdoXyBLbA58B8GzROLYhS4uZsLpvRfOTD2+C3nBsAOVWds9dmLj7+OJ0jxY=)
+            token-uri: ENC(0ODA59B0bbqLHiTzSG7ksvNbEYDF/efM4ejgdXYgxS1nONwzgfGys0zxK3rdeRKY)
+            user-info-uri: ENC(RNnJTvYLgVbdKQ8raNE4VWyHz+gVVnNN1TYyFsBFE3zuFltO1lQhNobMVv2jgPEV)
+            user-name-attribute: ENC(vweDqTx1gv32rzSXd8qrxbCE4nOUWH3d)
+
+          kakao:
+            authorization-uri: ENC(o2XTKvOZe24xsbvFQ1Di+k01461AOpWcLSqSmciFhDJ5Wwg2t2xxsy+/0Zd25EK5)
+            token-uri: ENC(U2nidkWKvMfS3+39BJPSFBtIoeDlRoQmo8MLkdHdp1Bx1pIsFjIv2MIno65rSWOo)
+            user-info-uri: ENC(Xg/YoVt5FK9aePgf/Wbn8mAFWKfWtnxz080hEx4jwYYlRd/XzDKd5uW/dHn6B8gG)
+            user-name-attribute: ENC(HMjOB0ur1G6dC85HmH6nzg==)
+
+
 #  redis:
 #    host: ENC(2vs2h50LHu9p/WFRDyH9M8Kvtn6Trbjp)
 #    port: 6377
